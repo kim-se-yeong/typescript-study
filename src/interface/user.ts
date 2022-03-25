@@ -1,18 +1,13 @@
-interface User {
-    name: string
-    age: number
+export interface User {
+    id: string
+    password: string
 }
-// declare var user: User
 
-// let user: User;
-
-const get = function(name: string, age:number) {
-    return {name, age};
+export const get = function(user: User) {
+    return user;
 }
 // function add(name: string, age: number) {
 //     return {
 //         name, age
 //     }
 // }
-
-export default get;

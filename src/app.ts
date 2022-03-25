@@ -1,5 +1,5 @@
 import express, {Request, Response} from 'express';
-import get from './interface/user';
+import userRouter from './routes/user';
 
 class Server {
     public app: express.Application
@@ -11,13 +11,14 @@ class Server {
 
 const app = new Server().app
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello, Typescript!');
-})
+app.set('view engine', 'pug');
+app.set('views', __dirname + '/views');
+app.use(express.urlencoded({extended: false}));
 
-app.get('/user/list', (req: Request, res: Response) => {
-    let user = get('seyeong', 26);
-    res.send(user.age + ', ' + user.name);
+app.use('/user', userRouter);
+
+app.get('/', (req: Request, res: Response) => {
+    res.render('main');
 })
 
 app.set('port', 3000)
