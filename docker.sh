@@ -18,5 +18,5 @@ docker run --platform linux/amd64 \
 -e "MYSQL_DATABASE=$MYSQL_DATABASE" \
 -e "MYSQL_USER=$MYSQL_USER" \
 -e "MYSQL_PASSWORD=$MYSQL_PASSWORD" \
--v "$PWD$LOCAL_MOUNT_PATH:/var/lib/mysql" \
+-v "$LOCAL_MOUNT_PATH:/var/lib/mysql" \
     mysql:latest
