@@ -1,6 +1,7 @@
 import express, {Request, Response} from 'express';
 import passport from 'passport';
 import passportgithub from 'passport-github2';
+import session from 'express-session';
 import dotenv from 'dotenv';
 import envpath from './util/filepath';
 import userRouter from './routes/user';
@@ -21,6 +22,9 @@ const app = new Server().app
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/views');
 app.use(express.urlencoded({extended: false}));
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true, }))
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/user', userRouter);
 
@@ -43,8 +47,8 @@ passport.use(new GitHubStrategy({
     }
 ));
 
-app.get('/', function(req, res){
-    res.render('main');
+app.get('/', (req: Request, res: Response) => {
+    res.render('main', { user: req.user });
 });
 
 app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
@@ -52,6 +56,11 @@ app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' 
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }),
     (req: Request, res: Response) => {
         res.redirect('/');   
+})
+
+app.get('/auth/logout', (req: Request, res: Response) => {
+    req.logOut();
+    res.redirect('/');
 })
 
 app.set('port', 3000)

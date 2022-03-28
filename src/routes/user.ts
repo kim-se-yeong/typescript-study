@@ -10,7 +10,7 @@ router.get('/create', (req: Request, res: Response) => {
 
 router.post('/create', async (req: Request, res: Response) => {
     
-    const reqBody = req.body as User;
+    const reqBody = req.body as User; //down casting syntax
 
     let connection = await pool.getConnection();
     let query = `INSERT INTO DRK.user(id, password) VALUES('${reqBody.id}', '${reqBody.password}');`;

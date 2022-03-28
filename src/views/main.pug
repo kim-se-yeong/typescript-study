@@ -4,6 +4,9 @@ html
         title MAIN
         meta(charset="utf-8")
     body 
-        a(href='/user/create') sign up
-        |  
-        a(href='/auth/github') login with gitHub
+        if !user
+           a(href='/auth/github') login with github
+        else 
+            p #{user.username}
+            |  
+            a(href='/auth/logout') logout
