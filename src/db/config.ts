@@ -1,5 +1,7 @@
 import mysql from 'mysql2/promise';
-require('dotenv').config({ path:__dirname + "/../../.env" });
+import dotenv from 'dotenv';
+import envpath from '../util/filepath';
+dotenv.config({ path: envpath});
 
 const config = {
     host: process.env.MYSQL_HOST,
