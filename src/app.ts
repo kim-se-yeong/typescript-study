@@ -4,7 +4,7 @@ import passportgithub from 'passport-github2';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import envpath from './util/filePath';
-import userRouter from './routes/user';
+import User from './interface/user';
 
 dotenv.config({ path: envpath});
 const GitHubStrategy = passportgithub.Strategy;
@@ -26,10 +26,8 @@ app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/user', userRouter);
-
-passport.serializeUser((user, done) => {
-    done(null, user);
+passport.serializeUser((user: User, done) => {
+    done(null, user.id);
 });
 
 passport.deserializeUser((obj: any, done) => {
