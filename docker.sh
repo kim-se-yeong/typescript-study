@@ -6,6 +6,7 @@ export MYSQL_ROOT_PASSWORD=1234
 export MYSQL_USER=sy
 export MYSQL_PASSWORD=qwer
 export LOCAL_MOUNT_PATH=/tmp/mysql/data
+export SCHRIPT_MOUNT_PATH=$PWD/script
 
 docker pull --platform linux/amd64 mysql:latest
 
@@ -19,4 +20,5 @@ docker run --platform linux/amd64 \
 -e "MYSQL_USER=$MYSQL_USER" \
 -e "MYSQL_PASSWORD=$MYSQL_PASSWORD" \
 -v "$LOCAL_MOUNT_PATH:/var/lib/mysql" \
+-v "$SCRIPT_MOUNT_PATH:/docker-entrypoint-initdb.d" \
     mysql:latest
