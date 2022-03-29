@@ -3,7 +3,7 @@ import passport from 'passport';
 import passportgithub from 'passport-github2';
 import session from 'express-session';
 import dotenv from 'dotenv';
-import envpath from './util/filepath';
+import envpath from './util/filePath';
 import userRouter from './routes/user';
 
 dotenv.config({ path: envpath});
