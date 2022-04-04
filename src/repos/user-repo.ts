@@ -1,22 +1,13 @@
-import { pool } from '../db/config';
 import User from '../interface/user';
 import { UserQueries } from '../services/user-queries';
+import { execute } from '../db/config';
 
 async function add(user: User): Promise<void> {
-
-    const connection = await pool.getConnection();
-    try {
-        await connection.query(UserQueries.AddUser, [user.id]);
-    } catch (error) {
-        throw error;
-    }
+    // return execute<User[]>(UserQueries.AddUser, []);
 }
 
 async function find(id: String): Promise<User> {
-
-    const connection = await pool.getConnection();
-    let [res] = await connection.query<User[]>(UserQueries.GetUser, [id]);
-    return res[0];
+    return execute<User>(UserQueries.GetUser, [id]);
 }
 
 export default {
