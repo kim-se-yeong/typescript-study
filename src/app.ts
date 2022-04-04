@@ -6,6 +6,7 @@ import passportgithub from 'passport-github2';
 import User from './interface/user';
 import envpath from './util/filePath';
 import * as MySQLConnector from './db/config';
+import authRouter from './routes/auth';
 
 dotenv.config({ path: envpath});
 
@@ -57,17 +58,10 @@ app.get('/', (req: Request, res: Response) => {
     res.render('main', { id: req.user?.id,  address: req.user?.address});
 });
 
-app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
-
-app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }),
-    (req: Request, res: Response) => {
-        res.redirect('/');   
-})
-
-app.get('/auth/logout', (req: Request, res: Response) => {
-    req.logOut();
-    res.redirect('/');
-})
+/************************************************************************
+ * Router
+ ************************************************************************/
+app.use('/auth', authRouter);
 
 app.set('port', 3000)
     .listen(app.get('port'), () => {
