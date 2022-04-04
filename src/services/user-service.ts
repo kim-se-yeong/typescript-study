@@ -5,6 +5,11 @@ function add(user: User): Promise<void> {
     return repo.add(user);
 }
 
+function find(id: String): Promise<User> {
+    return repo.find(id);
+}
+
 export default {
-    add
+    add,
+    find
 }
