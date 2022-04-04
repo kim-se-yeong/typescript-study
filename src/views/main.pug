@@ -3,10 +3,13 @@ html
     head 
         title MAIN
         meta(charset="utf-8")
-    body 
-        if !user
-           a(href='/auth/github') login with github
+    body
+        h1
+        if !id
+            a(href='/auth/github') Login With Github
         else 
-            p #{user}
+            p #{id}
             |  
-            a(href='/auth/logout') logout
+            a(href=`${address}`) My Github Home
+            |  
+            a(href='/auth/logout') Logout

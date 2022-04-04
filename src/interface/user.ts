@@ -1,5 +1,6 @@
 interface User {
-    id: String
+    id: String,
+    address: String
 }
 
 export default User;
