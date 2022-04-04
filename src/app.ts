@@ -5,8 +5,11 @@ import passport from 'passport';
 import passportgithub from 'passport-github2';
 import User from './interface/user';
 import envpath from './util/filePath';
+import * as MySQLConnector from './db/config';
 
 dotenv.config({ path: envpath});
+
+MySQLConnector.init();
 const GitHubStrategy = passportgithub.Strategy;
 
 class Server {
